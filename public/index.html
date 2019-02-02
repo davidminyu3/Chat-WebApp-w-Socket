@@ -7,5 +7,18 @@
 
   <body>
     <p>welcome</p>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      socket.on('connect', () => {   // listen for an event  ('event name', 'callback function)
+        console.log('connected to the server');
+      });
+      socket.on('disconnect', () => {
+        console.log('disconnected from the server');
+      });
+      
+    </script>
   </body>
 </html>
