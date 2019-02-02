@@ -12,14 +12,23 @@ const io = socketIO(server);
 
 app.use(express.static(publicPath));
 
-io.on('connection', (socket) => { // io.on registers an event listener
+io.on('connection', (socket) => {    // io.on registers an event listener
   console.log('new user connected');
 
-  socket.on('disconnect', () => {
+  socket.emit('newMessage', {
+    from: 'David',
+    text: 'I am David'
+  });
+
+  socket.on('createMessage', (message) => {
+    console.log('createMessage', message);
+  });
+
+  socket.on('disconnect', () => {   // appears on terminal (server), when chrome tab (client) closes
     console.log('user was disconnected');
-    io.emit('user disconnected');
   });
 });   
+
 server.listen(port, () => {
   console.log(`SERVER ON ${port}`);
 });
